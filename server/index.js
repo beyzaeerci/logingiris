@@ -30,7 +30,7 @@ app.post("/login", async (req, res) => {
   const userLoginInfo = req.body;
   console.log(userLoginInfo);
 
-  const userQuery = await client.query(`SELECT * from "users" where firstname='${userLoginInfo.username}'`);
+  const userQuery = await client.query(`SELECT * from "users" where firstname='${userLoginInfo.firstname}'`);
   const user = userQuery.rows[0] ? userQuery.rows[0] : null
 
 
@@ -57,7 +57,7 @@ app.post("/register", async (req, res) => {
   if (user) {
     res.status(400).send('Bu kullanıcı kayıtlı')
   } else {
-    await client.query(`insert into "users" (firstname, lastname, email, password) values('${userLoginInfo.firstname}', '${userLoginInfo.lastname})'`)
+    await client.query(`insert into "users" (firstname, lastname, email, password) values('${userLoginInfo.firstname}', '${userLoginInfo.lastname}', '${userLoginInfo.email}', '${userLoginInfo.password}')`)
     res.status(204).json({ message: `Kayıt Başarılı...` });
   }
 });

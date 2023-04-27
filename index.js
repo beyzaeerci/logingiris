@@ -16,6 +16,9 @@ fetch('http://localhost:3000/login', {
         "content-type": "application/json"
     },
     body:JSON.stringify(userLoginInfo),
-}).then(res => console.log(res))
+}).then(async res => {
+    const jsonRes = await res.json();
+    localStorage.setItem('users', JSON.stringify(res))
+});
 
 }
